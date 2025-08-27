@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <!-- Styling using Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Icons from Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Inter font is used */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        /* Drop shadow for button text */
+        .text-shadow-custom {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- The navigation bar will now be on top of all pages and change its style -->
+    <nav id="main-nav" class="p-2 flex items-center justify-between z-10 transition-colors duration-300">
+        <!-- 'Home' button (Left side) -->
+        <div class="flex-shrink-0">
+            <a href="#" class="nav-btn px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-full transition-colors duration-200 shadow-md hover:shadow-lg hover:bg-[#0046FF]" onclick="showPage('home')">Home</a>
+        </div>
+        <!-- Right-side buttons -->
+        <div class="flex space-x-2 sm:space-x-4">
+            <a href="#" class="nav-btn px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-full transition-colors duration-200 shadow-md hover:shadow-lg hover:bg-[#0046FF]" onclick="showPage('work')">My work</a>
+            <a href="#" class="nav-btn px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-full transition-colors duration-200 shadow-md hover:shadow-lg hover:bg-[#0046FF]" onclick="showPage('about')">About me</a>
+            <a href="#" class="nav-btn px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-full transition-colors duration-200 shadow-md hover:shadow-lg hover:bg-[#0046FF]" onclick="showPage('contact')">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main page container for all content sections -->
+    <div id="website-container" class="relative">
+
+        <!-- This is the home page section -->
+        <div id="home-page" class="block">
+            <!-- Container for the top image, spanning full width. -->
+            <div class="w-full">
+                <!-- New top banner image URL is added here. -->
+                <img 
+                    src="https://lh3.googleusercontent.com/pw/AP1GczO5wxBskNMuz7uZId33POEFA4pMvk4D7uRRZ2pC0bu0VsTWwPltFZDxW_WQ6xWbZa95-CjSm-z3gRm4V29XZZVvNJRtqlIQN4FbPAJTQuc9DUIR9Ge7Du3ovXVkIT7QgHnsTDhDYQtwUyWY8uUA28X1=w1920-h759-s-no-gm?authuser=0" 
+                    alt="Website Main Banner" 
+                    class="w-full h-auto"
+                >
+            </div>
+
+            <!-- Profile picture and text section is placed below the banner. Increased top margin (mt-6) for better spacing on mobile and desktop. -->
+            <div class="flex flex-col items-center justify-center -mt-12 sm:-mt-24 md:-mt-32 z-20">
+                <!-- 
+                    This is the profile picture. The placeholder image has been replaced. 
+                    You must replace this URL with your own public profile picture URL. 
+                -->
+                <img
+                    src="https://lh3.googleusercontent.com/pw/AP1GczMhK-lIdyRe230IpTmRw3PVykXUZRKg0IthnFIK4pqhsPBeFrPQLlpcx07Ew42NhQnTHB6E2yVx-XVpJ0-CxL877V7Fy9SCZlB3TQkIKmepCfzMZHoUoLiyV9jxuqZuPFbVHXsZTQH7EH9b76h4yBlv=w1280-h720-s-no-gm?authuser=0"
+                    alt="Profile Picture"
+                    class="w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 object-cover rounded-full shadow-lg border-4 border-white transform translate-y-8 sm:translate-y-0"
+                >
+                <div class="text-center mt-6">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mt-2">Rakibul Malithya</h2>
+                    <p class="text-sm sm:text-md md:text-lg text-gray-600">Video Editor and Creative</p>
+                </div>
+            </div>
+
+            <!-- The 'Showreel' section -->
+            <section class="container mx-auto px-4 py-8 text-center">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6">My Showreel</h3>
+                <div class="relative w-full overflow-hidden rounded-lg shadow-md" style="padding-top: 56.25%;">
+                    <!-- 
+                        This is an embedded YouTube video. 
+                        The video URL has been updated with the new link provided by the user.
+                        The 'padding-top: 56.25%;' makes the iframe responsive, maintaining a 16:9 aspect ratio.
+                    -->
+                    <iframe 
+                        class="absolute inset-0 w-full h-full rounded-lg"
+                        src="https://www.youtube.com/embed/JH2Td9pxSMI" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+
+                <!-- This is the new button added below the showreel video -->
+                <a href="#" class="inline-block mt-8 py-3 px-6 text-white font-bold rounded-full bg-blue-500 hover:bg-blue-700 transition-colors duration-300 shadow-lg" onclick="showPage('work')">
+                    Let's see my work
+                </a>
+            </section>
+        </div>
+
+        <!-- This is the 'My work' page section. It is hidden by default. -->
+        <div id="work-page" class="hidden container mx-auto px-4 py-8">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">My Work</h3>
+                <p class="text-sm sm:text-lg text-gray-600 text-center leading-relaxed mb-8">
+                    Here you can explore a diverse range of my creative works — from video editing and motion graphics to sound design and color grading. Each project reflects my dedication to visual storytelling and technical precision. Feel free to browse through and get a glimpse of my style, skill, and passion for post-production.
+                </p>
+                <!-- This section can be customized later with your projects -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-inner">
+                        <h4 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Project 1 Title</h4>
+                        <p class="text-sm sm:text-base text-gray-600">Short description of the project and what you did. Add a thumbnail or a link to the video.</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-inner">
+                        <h4 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Project 2 Title</h4>
+                        <p class="text-sm sm:text-base text-gray-600">Short description of the project and what you did. Add a thumbnail or a link to the video.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- This is the 'About Me' page section. It is hidden by default. -->
+        <div id="about-page" class="hidden container mx-auto px-4 py-8">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">About Me</h3>
+                <p class="text-sm sm:text-lg text-gray-600 text-center leading-relaxed mb-8">
+                    I am a passionate and skilled video editor with a strong eye for detail and a knack for creative storytelling. My experience in various projects has honed my abilities to deliver high-quality visual content that captivates audiences. I'm always eager to take on new challenges and bring innovative ideas to life.
+                </p>
+
+                <!-- Education Section -->
+                <div class="mb-8">
+                    <h4 class="text-lg sm:text-2xl font-semibold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2">Education</h4>
+                    <div class="flex items-start mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 flex-shrink-0 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.05v-9.05z" />
+                            <path d="M12 14L5.84 10.578a12.083 12.083 0 01-.665-6.479A11.952 11.952 0 0012 20.05v-9.05z" />
+                        </svg>
+                        <p class="text-sm sm:text-base text-gray-600">
+                            B.Voc in Broadcast Journalism
+                            <br>
+                            I completed my graduation with a focus on Broadcast Journalism, achieving an impressive 88% marks in my final semester.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Work Experience Section -->
+                <div class="mb-8">
+                    <h4 class="text-lg sm:text-2xl font-semibold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2">Work Experience</h4>
+                    <!-- Job 1 -->
+                    <div class="flex items-start mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 flex-shrink-0 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.208-8.495-3.473l-.403-.403l.403-.403C5.78 9.208 8.817 8 12 8s6.22 1.208 8.495 3.473l.403.403l-.403.403z" />
+                        </svg>
+                        <p class="text-sm sm:text-base text-gray-600">
+                            Video Editor, Our Voice (Starting May 1, 2025)
+                            <br>
+                            Received an offer to join Our Voice as a Video Editor, where my prior experience and skills are highly valued.
+                        </p>
+                    </div>
+                    <!-- Job 2 -->
+                    <div class="flex items-start mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 flex-shrink-0 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.208-8.495-3.473l-.403-.403l.403-.403C5.78 9.208 8.817 8 12 8s6.22 1.208 8.495 3.473l.403.403l-.403.403z" />
+                        </svg>
+                        <p class="text-sm sm:text-base text-gray-600">
+                            Video Editor, Tara TV (June 2024 - November 2024)
+                        </p>
+                    </div>
+                    <!-- Job 3 -->
+                    <div class="flex items-start mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 flex-shrink-0 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.208-8.495-3.473l-.403-.403l.403-.403C5.78 9.208 8.817 8 12 8s6.22 1.208 8.495 3.473l.403.403l-.403.403z" />
+                        </svg>
+                        <p class="text-sm sm:text-base text-gray-600">
+                            Video Editor, TDN Bangla (November 2022 - April 2024)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="mb-8">
+                    <h4 class="text-lg sm:text-2xl font-semibold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2">Skills & Expertise</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="font-semibold text-gray-800 mb-2 text-base sm:text-lg">Technical Skills</p>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm sm:text-base">
+                                <li>Video Editing: Proficient in Adobe Premiere Pro & DaVinci Resolve.</li>
+                                <li>Motion Graphics: Experienced with Adobe After Effects for dynamic animations.</li>
+                                <li>Camera Operation: Strong understanding of exposure, shutter speed, ISO, and different camera shots.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800 mb-2 text-base sm:text-lg">Other Skills</p>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm sm:text-base">
+                                <li>Cooking: Expert in cooking various dishes including rice, khichuri, and biryani.</li>
+                                <li>Teaching: Experienced as a computer teacher.</li>
+                                <li>Storytelling: Ability to craft compelling narratives through visual content.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- This is the 'Contact' page section. Now updated with the new content. -->
+        <div id="contact-page" class="hidden container mx-auto px-4 py-8">
+            <!-- Contact Card -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-sm w-full mx-auto">
+                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6">Contact</h2>
+
+                <!-- Email Section -->
+                <a href="mailto:vdoadtr@gmail.com" class="flex items-center space-x-4 p-4 rounded-xl bg-blue-50 hover:bg-blue-100 transition-colors duration-200 mb-4 group shadow-md hover:shadow-xl transform hover:scale-105 transition-all duration-500">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full text-2xl group-hover:bg-blue-600 transition-colors duration-200">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500">Email</p>
+                        <p class="text-sm sm:text-lg font-medium text-gray-800 group-hover:underline">vdoadtr@gmail.com</p>
+                    </div>
+                </a>
+
+                <!-- Phone Call Section -->
+                <a href="tel:+919531661985" class="flex items-center space-x-4 p-4 rounded-xl bg-green-50 hover:bg-green-100 transition-colors duration-200 mb-4 group shadow-md hover:shadow-xl transform hover:scale-105 transition-all duration-500">
+                    <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white flex items-center justify-center rounded-full text-2xl group-hover:bg-green-600 transition-colors duration-200">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500">Phone Call</p>
+                        <p class="text-sm sm:text-lg font-medium text-gray-800 group-hover:underline">+91 9531661985</p>
+                    </div>
+                </a>
+
+                <!-- WhatsApp Section -->
+                <a href="https://wa.me/919531661985" class="flex items-center space-x-4 p-4 rounded-xl bg-lime-50 hover:bg-lime-100 transition-colors duration-200 group shadow-md hover:shadow-xl transform hover:scale-105 transition-all duration-500">
+                    <div class="flex-shrink-0 w-12 h-12 bg-lime-500 text-white flex items-center justify-center rounded-full text-2xl group-hover:bg-lime-600 transition-colors duration-200">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500">WhatsApp</p>
+                        <p class="text-sm sm:text-lg font-medium text-gray-800 group-hover:underline">+91 9531661985</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript to handle page switching -->
+    <script>
+        /**
+         * Function to show and hide different sections of the website.
+         * It also dynamically changes the navigation bar's appearance.
+         * @param {string} pageId - The ID of the page to show ('home', 'about', 'work', 'contact').
+         */
+        function showPage(pageId) {
+            const pages = ['home-page', 'work-page', 'about-page', 'contact-page'];
+            const nav = document.getElementById('main-nav');
+            const navLinks = document.querySelectorAll('.nav-btn');
+            
+            // Remove previous classes for a clean slate
+            nav.classList.remove('absolute', 'sticky', 'top-0', 'bg-white', 'shadow-md');
+            navLinks.forEach(link => {
+                link.classList.remove('text-white', 'hover:text-white', 'text-black');
+            });
+
+            // Set classes based on the pageId
+            if (pageId === 'home') {
+                // For the home page, the nav bar sits on the banner image
+                nav.classList.add('absolute', 'top-0', 'left-0', 'right-0');
+                navLinks.forEach(link => {
+                    link.classList.add('bg-[rgba(0,70,255,0.2)]', 'text-white', 'text-shadow-custom');
+                    link.classList.remove('hover:text-white'); // Remove if present from other pages
+                });
+            } else {
+                // For other pages, the nav bar is sticky and has a white background
+                nav.classList.add('sticky', 'top-0', 'bg-white', 'shadow-md');
+                navLinks.forEach(link => {
+                    link.classList.add('bg-[rgba(0,70,255,0.2)]', 'text-black');
+                    link.classList.remove('text-white', 'text-shadow-custom'); // Remove if present from home page
+                });
+            }
+
+            // Hide all pages and then show the selected one
+            pages.forEach(page => {
+                const element = document.getElementById(page);
+                if (element) {
+                    if (page === `${pageId}-page`) {
+                        element.style.display = 'block';
+                    } else {
+                        element.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // Initially show the home page.
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
