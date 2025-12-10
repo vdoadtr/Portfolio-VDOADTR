@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Rakibul Malithya</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-gray-900/90 backdrop-blur-md border-b border-gray-800 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 cursor-pointer">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">VDO ADTR</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-300">Home</a>
+                        <a href="about.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-300">About</a>
+                        <a href="project.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-white bg-gray-800">Project</a>
+                        <a href="contact.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-300">Contact</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-b border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Home</a>
+                <a href="about.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">About</a>
+                <a href="project.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white bg-gray-800">Project</a>
+                <a href="contact.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-16">
+        <section class="fade-in py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">My Projects</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Here are some samples of my work in video editing, motion graphics, and storytelling.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <a href="graphics-design.html" class="block group bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500 transition-all duration-300 shadow-lg hover:shadow-blue-900/20">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMLua3xku_WWnPElxG3JaDvE4jJWssTSADrv5IvRMSJODi4nqUjYQ5p6vZfsN8hVOUuMdKy1BVD6deTgKphZIeZH0QuxKwquioiNkpWK64_-EOTJTq9TU-ecc_vgLZo9LnmsKZQk7RadZXhMgW8eL9A=w1352-h901-s-no-gm?authuser=0" alt="Graphics Design" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">View Design</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Graphics Design</h3>
+                        <p class="text-gray-400 text-sm mb-4">Creative visual designs, thumbnails, and branding materials.</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">Photoshop</span>
+                            <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">Illustrator</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project Card 2 -->
+                <div class="group bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500 transition-all duration-300 shadow-lg hover:shadow-purple-900/20">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-600 bg-gray-800 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
+                        </div>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-medium">View Project</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Motion Graphics</h3>
+                        <p class="text-gray-400 text-sm mb-4">Dynamic logo animation, intro sequences, and VFX.</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">After Effects</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="group bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-green-500 transition-all duration-300 shadow-lg hover:shadow-green-900/20">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-600 bg-gray-800 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium">Watch Edit</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Video Edit</h3>
+                        <p class="text-gray-400 text-sm mb-4">Professional editing for commercials, social media, and storytelling.</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">Premiere Pro</span>
+                            <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">CapCut</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center p-8 bg-gray-900 rounded-2xl border border-gray-800">
+                <p class="text-gray-300 mb-4">Want to see more of my work?</p>
+                <a href="mailto:vdoadtr@gmail.com" class="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium">
+                    Request Full Portfolio
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-8 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-gray-500 mb-2">&copy; 2025 VDO ADTR - Rakibul Malithya. All rights reserved.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-600 hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="text-gray-600 hover:text-white transition-colors">LinkedIn</a>
+                <a href="#" class="text-gray-600 hover:text-white transition-colors">Facebook</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
