@@ -180,20 +180,25 @@
         <!-- Hidden Dummy Player for Fetching Playlist Data -->
         <div id="dummy-player" class="hidden"></div>
 
-        <!-- Carousel Area -->
-        <div class="carousel-container mb-8" id="carousel">
-            <!-- Items injected by JS -->
-            <div class="text-gray-500 animate-pulse">Loading Playlist...</div>
-        </div>
+        <!-- Carousel Wrapper with Overlay Arrows -->
+        <div class="relative w-full max-w-6xl mx-auto mb-12 group">
+            
+            <!-- Previous Button (Left) -->
+            <button onclick="manualMove(-1)" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-50 p-3 md:p-4 bg-black/40 hover:bg-purple-600 rounded-full text-white transition-all backdrop-blur-sm border border-white/10 shadow-lg hover:scale-110 active:scale-95">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
 
-        <!-- Controls -->
-        <div class="flex justify-center gap-6 z-40 relative">
-            <button onclick="manualMove(-1)" class="p-4 bg-gray-800 rounded-full hover:bg-purple-600 transition-all shadow-lg hover:scale-110 active:scale-95 group">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            <!-- Carousel Container -->
+            <div class="carousel-container" id="carousel">
+                <!-- Items injected by JS -->
+                <div class="text-gray-500 animate-pulse">Loading Playlist...</div>
+            </div>
+
+            <!-- Next Button (Right) -->
+            <button onclick="manualMove(1)" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 p-3 md:p-4 bg-black/40 hover:bg-purple-600 rounded-full text-white transition-all backdrop-blur-sm border border-white/10 shadow-lg hover:scale-110 active:scale-95">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
-            <button onclick="manualMove(1)" class="p-4 bg-gray-800 rounded-full hover:bg-purple-600 transition-all shadow-lg hover:scale-110 active:scale-95 group">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </button>
+
         </div>
 
     </main>
