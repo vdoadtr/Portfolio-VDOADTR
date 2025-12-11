@@ -7,14 +7,133 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1a1a1a; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+        
+        /* 3D Carousel Styles */
+        .carousel-container {
+            perspective: 1000px;
+            height: 400px; 
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide overflow to prevent scrollbars from flying items */
+        }
+
+        .carousel-item {
+            position: absolute;
+            width: 60%; /* Base width for desktop */
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Play Icon Overlay */
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .pos-center .play-icon { opacity: 1; }
+        .pos-center:hover .play-icon { transform: scale(1.1); background: rgba(147, 51, 234, 0.8); }
+
+        /* Positions Logic per User Request */
+        
+        /* Center Card */
+        .pos-center {
+            transform: translateX(0) scale(1.1);
+            z-index: 30;
+            opacity: 1;
+            border: 2px solid rgba(147, 51, 234, 0.8); /* Purple for Motion Graphics */
+            filter: grayscale(0%);
+        }
+
+        /* Immediate Neighbors */
+        .pos-left {
+            transform: translateX(-70%) scale(0.85);
+            z-index: 20;
+            opacity: 0.6;
+            filter: grayscale(100%);
+            pointer-events: none; /* Only center is clickable */
+        }
+        .pos-right {
+            transform: translateX(70%) scale(0.85);
+            z-index: 20;
+            opacity: 0.6;
+            filter: grayscale(100%);
+            pointer-events: none;
+        }
+
+        /* Hidden Cards (Far Off-screen) */
+        .pos-out-left {
+            transform: translateX(-180%) scale(0.6);
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .pos-out-right {
+            transform: translateX(180%) scale(0.6);
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            background: black;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(147, 51, 234, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container { height: 280px; }
+            .carousel-item { width: 75%; }
+            /* Adjust translate for mobile to prevent overflow issues */
+            .pos-left { transform: translateX(-60%) scale(0.85); }
+            .pos-right { transform: translateX(60%) scale(0.85); }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col">
@@ -39,7 +158,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+    <main class="flex-grow pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full overflow-hidden">
         
         <!-- Back Button -->
         <div class="mb-8">
@@ -58,79 +177,247 @@
             <p class="text-gray-400">Watch my latest motion graphics work and animations.</p>
         </div>
 
-        <!-- Video Player Container -->
-        <div class="fade-in bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-800 p-4">
-            <div class="relative w-full" style="padding-bottom: 56.25%;"> <!-- 16:9 Aspect Ratio -->
-                <!-- The API will replace this div with the iframe -->
-                <div id="player" class="absolute top-0 left-0 w-full h-full rounded-xl"></div>
-            </div>
-            
-            <!-- Custom Navigation Controls -->
-            <div class="flex items-center justify-center gap-6 mt-6 pb-2">
-                <button id="prevBtn" class="group p-4 rounded-full bg-gray-800 hover:bg-blue-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 active:scale-95">
-                    <svg class="w-8 h-8 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-                
-                <span class="text-sm text-gray-500 font-medium tracking-widest uppercase">Navigate Playlist</span>
+        <!-- Hidden Dummy Player for Fetching Playlist Data -->
+        <div id="dummy-player" class="hidden"></div>
 
-                <button id="nextBtn" class="group p-4 rounded-full bg-gray-800 hover:bg-purple-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 active:scale-95">
-                    <svg class="w-8 h-8 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
-            </div>
+        <!-- Carousel Area -->
+        <div class="carousel-container mb-8" id="carousel">
+            <!-- Items injected by JS -->
+            <div class="text-gray-500 animate-pulse">Loading Playlist...</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex justify-center gap-6 z-40 relative">
+            <button onclick="manualMove(-1)" class="p-4 bg-gray-800 rounded-full hover:bg-purple-600 transition-all shadow-lg hover:scale-110 active:scale-95 group">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button onclick="manualMove(1)" class="p-4 bg-gray-800 rounded-full hover:bg-purple-600 transition-all shadow-lg hover:scale-110 active:scale-95 group">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
         </div>
 
     </main>
+
+    <!-- Modal for Video Playback -->
+    <div id="videoModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-red-500 z-50">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-player" class="w-full h-full"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 border-t border-gray-800 py-8 mt-auto">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <p class="text-gray-500 mb-2">&copy; 2025 VDO ADTR - Rakibul Malithya. All rights reserved.</p>
-            <div class="flex justify-center space-x-4">
-                <a href="#" class="text-gray-600 hover:text-white transition-colors">Instagram</a>
-                <a href="#" class="text-gray-600 hover:text-white transition-colors">LinkedIn</a>
-                <a href="#" class="text-gray-600 hover:text-white transition-colors">Facebook</a>
-            </div>
         </div>
     </footer>
 
-    <!-- YouTube API Script -->
+    <!-- Logic -->
     <script>
+        // CONFIGURATION
+        const PLAYLIST_ID = 'PLHBAGqe70wiL2ranIx4mA7i_qvPQma8pu'; // Motion Graphics Playlist
+        let videoIds = [];
+        let activeIndex = 0;
+        let autoPlayInterval;
+        let isModalOpen = false;
+        let mainPlayer; // The player inside the modal
+
+        // 1. Load YouTube IFrame API
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        var player;
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '100%',
-                width: '100%',
+            // Initialize hidden player to fetch playlist data
+            new YT.Player('dummy-player', {
+                height: '0',
+                width: '0',
                 playerVars: {
-                    'listType': 'playlist',
-                    'list': 'PLHBAGqe70wiL2ranIx4mA7i_qvPQma8pu', // Motion Graphics Playlist ID
-                    'rel': 0,
-                    'modestbranding': 1
+                    listType: 'playlist',
+                    list: PLAYLIST_ID
                 },
                 events: {
-                    'onReady': onPlayerReady
+                    'onReady': onDummyPlayerReady
                 }
             });
         }
 
-        function onPlayerReady(event) {
-            // Bind custom buttons to API functions
-            document.getElementById('prevBtn').addEventListener('click', function() {
-                player.previousVideo();
+        // 2. Fetch Playlist Data
+        function onDummyPlayerReady(event) {
+            // Get array of video IDs from the playlist
+            const playlist = event.target.getPlaylist();
+            
+            if (playlist && playlist.length > 0) {
+                videoIds = playlist;
+                initCarousel();
+            } else {
+                document.getElementById('carousel').innerHTML = '<div class="text-red-500">Failed to load playlist.</div>';
+            }
+        }
+
+        // 3. Initialize Carousel
+        function initCarousel() {
+            const container = document.getElementById('carousel');
+            container.innerHTML = ''; // Clear loading text
+
+            videoIds.forEach((id, index) => {
+                const item = document.createElement('div');
+                item.className = 'carousel-item';
+                item.id = `item-${index}`;
+                
+                // Set Thumbnail Background
+                const thumbUrl = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+                item.style.backgroundImage = `url(${thumbUrl})`;
+
+                // Add Play Icon Overlay
+                item.innerHTML = `
+                    <div class="play-icon">
+                        <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                `;
+
+                // Add Click Event to Open Modal
+                item.onclick = () => {
+                    if (item.classList.contains('pos-center')) {
+                        openModal(id);
+                    }
+                };
+
+                container.appendChild(item);
             });
-            document.getElementById('nextBtn').addEventListener('click', function() {
-                player.nextVideo();
+
+            // Set initial positions
+            activeIndex = Math.floor(videoIds.length / 2); // Start in middle
+            updatePositions();
+            startAutoLoop();
+            initTouchEvents();
+        }
+
+        // 4. Update 3D Positions
+        function updatePositions() {
+            videoIds.forEach((_, i) => {
+                const item = document.getElementById(`item-${i}`);
+                item.className = 'carousel-item'; // Reset
+
+                // Calculate circular difference
+                let diff = (i - activeIndex) % videoIds.length;
+                if (diff < 0) diff += videoIds.length;
+
+                // Normalize around 0
+                let normalizedDiff = diff;
+                if (diff > videoIds.length / 2) {
+                    normalizedDiff = diff - videoIds.length;
+                }
+
+                // Assign Classes based on normalized diff
+                if (normalizedDiff === 0) {
+                    item.classList.add('pos-center');
+                } else if (normalizedDiff === -1 || (activeIndex === 0 && i === videoIds.length - 1)) {
+                    item.classList.add('pos-left');
+                } else if (normalizedDiff === 1 || (activeIndex === videoIds.length - 1 && i === 0)) {
+                    item.classList.add('pos-right');
+                } else if (normalizedDiff < -1) {
+                    item.classList.add('pos-out-left');
+                } else {
+                    item.classList.add('pos-out-right');
+                }
             });
         }
-    </script>
 
+        // 5. Navigation Logic
+        function moveCarousel(direction) {
+            activeIndex = (activeIndex + direction + videoIds.length) % videoIds.length;
+            updatePositions();
+        }
+
+        function manualMove(direction) {
+            stopAutoLoop();
+            moveCarousel(direction);
+            startAutoLoop();
+        }
+
+        // 6. Auto Loop (3 Seconds)
+        function startAutoLoop() {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(() => {
+                if (!isModalOpen) {
+                    moveCarousel(1);
+                }
+            }, 3000);
+        }
+
+        function stopAutoLoop() {
+            clearInterval(autoPlayInterval);
+        }
+
+        // 7. Touch / Swipe Support
+        function initTouchEvents() {
+            const container = document.getElementById('carousel');
+            let startX = 0;
+            let endX = 0;
+
+            container.addEventListener('touchstart', (e) => {
+                startX = e.changedTouches[0].screenX;
+                stopAutoLoop();
+            }, {passive: true});
+
+            container.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].screenX;
+                handleSwipe();
+                startAutoLoop();
+            }, {passive: true});
+
+            function handleSwipe() {
+                if (startX - endX > 50) {
+                    // Swipe Left -> Next
+                    moveCarousel(1);
+                }
+                if (endX - startX > 50) {
+                    // Swipe Right -> Prev
+                    moveCarousel(-1);
+                }
+            }
+        }
+
+        // 8. Modal Video Playback
+        function openModal(videoId) {
+            isModalOpen = true;
+            stopAutoLoop();
+            
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('active');
+
+            if (mainPlayer) {
+                mainPlayer.loadVideoById(videoId);
+            } else {
+                mainPlayer = new YT.Player('modal-player', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: videoId,
+                    playerVars: {
+                        'autoplay': 1,
+                        'rel': 0,
+                        'modestbranding': 1
+                    }
+                });
+            }
+        }
+
+        function closeModal() {
+            isModalOpen = false;
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('active');
+            
+            if (mainPlayer) {
+                mainPlayer.stopVideo();
+            }
+            startAutoLoop();
+        }
+
+    </script>
 </body>
 </html>
